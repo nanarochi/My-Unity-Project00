@@ -35,6 +35,8 @@ public class PlayerKeyController : MonoBehaviour
     [SerializeField]
     public GameObject m_pUIMenu;
 
+    [SerializeField]
+    public GameObject m_pUICharactor;
 
     #endregion
 
@@ -49,6 +51,7 @@ public class PlayerKeyController : MonoBehaviour
     AnimatorManager m_pAnimScript;
     UIMenuMsg m_pUIMenuScript;
     UIInvenWork m_pUIInvenWorkScript;
+    UICharactor m_pUICharScript;
 
     float m_fTime;
     float m_fHandleCoord;
@@ -75,6 +78,9 @@ public class PlayerKeyController : MonoBehaviour
     bool m_isActivePauseMenu;
     bool m_isInvenPopUp;
     bool m_isGamePopUp;
+    bool m_isActiveCharactor;
+    bool m_isCharactorPopUp;
+
 
     public bool P_IsActiveInven
     {
@@ -89,6 +95,12 @@ public class PlayerKeyController : MonoBehaviour
 
     }
 
+    public bool P_IsActiveCharactor
+    {
+        get { return m_isActiveCharactor; }
+        set { m_isActiveCharactor = value; }
+    }
+
     public bool P_IsActiveInvenPopUp
     {
         get { return m_isInvenPopUp; }
@@ -100,6 +112,13 @@ public class PlayerKeyController : MonoBehaviour
         get { return m_isGamePopUp; }
         set { m_isGamePopUp = value; }
     }
+
+    public bool P_IsActiveCharactorPopUp
+    {
+        get { return m_isCharactorPopUp; }
+        set { m_isCharactorPopUp = value; }
+    }
+
     Vector3 m_vDir;
 
     float m_fZTranslate;
@@ -196,6 +215,10 @@ public class PlayerKeyController : MonoBehaviour
             m_isActiveInven = !m_isActiveInven;
         }
 
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            m_isActiveCharactor = !m_isActiveCharactor;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (!m_pAnimScript[m_pAnimScript.P_nPlayer].GetCurrentAnimatorStateInfo
@@ -249,7 +272,7 @@ public class PlayerKeyController : MonoBehaviour
 
     void F_Action()
     {
-        if (m_isGamePopUp || m_isInvenPopUp)
+        if (m_isGamePopUp || m_isInvenPopUp || m_isCharactorPopUp)
         {
 
         }
@@ -370,7 +393,14 @@ public class PlayerKeyController : MonoBehaviour
         {
             m_pUIInvenWorkScript.C_OnClickCloseInven();
         }
-
+        if(m_isActiveCharactor)
+        {
+            m_pUICharScript.C_ShowCharactor();
+        }
+        else
+        {
+            m_pUICharScript.C_OnClickCloseCharactor();
+        }
         if (m_isActivePauseMenu)
         {
             m_pUIMenuScript.C_ShowPauseMsg();
@@ -402,6 +432,7 @@ public class PlayerKeyController : MonoBehaviour
         m_pAnimScript = m_pAnimManager.GetComponent<AnimatorManager>();
         m_pUIMenuScript = m_pUIMenu.GetComponent<UIMenuMsg>();
         m_pUIInvenWorkScript = m_pUIInven.GetComponent<UIInvenWork>();
+        m_pUICharScript = m_pUICharactor.GetComponent<UICharactor>();
 
         m_fYRotate = 0.0f;
         m_fXTranslate = 0.0f;
@@ -413,6 +444,8 @@ public class PlayerKeyController : MonoBehaviour
         m_isModRunSpeed = false;
         m_isActiveInven = false;
         m_isActivePauseMenu = false;
+        m_isActiveCharactor = false;
+        m_isCharactorPopUp = false;
         m_isInvenPopUp = false;
         m_isGamePopUp = false;
         m_isMove = false;
