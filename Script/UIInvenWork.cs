@@ -24,10 +24,6 @@ public class UIInvenWork : MonoBehaviour
 
     Text m_pUIGoldText;
 
-    decimal m_dOwnGold;
-
-    const int m_nGOLDSCALAR = 50;
-
     public void C_ShowInven()
     {
         Time.timeScale = 0;
@@ -50,11 +46,9 @@ public class UIInvenWork : MonoBehaviour
         m_pInven.SetActive(m_pPKCScript.P_IsActiveInven);
     }
 
-    void F_UpdateOwnGold()
+    void F_UpdateOwnMoney()
     {
-        m_dOwnGold = m_pMNInfoScript.P_LoadNInfo(MultipleInfo.E_NINFO.E_GOLD) * m_nGOLDSCALAR;
-        
-        m_pUIGoldText.text = m_dOwnGold.ToString();
+        m_pUIGoldText.text = m_pMNInfoScript.C_LoadNInfo(MultipleInfo.E_NINFO.E_MONEY).ToString();
     }
 
 
@@ -64,14 +58,12 @@ public class UIInvenWork : MonoBehaviour
         m_pPKCScript = m_pInputScript.GetComponent<PlayerKeyController>();
         m_pMNInfoScript = m_pMultipleNInfo.GetComponent<MultipleInfo>();
         m_pUIGoldText = m_pOwnGoldText.GetComponent<Text>();
-
-        m_dOwnGold = 0;
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        F_UpdateOwnGold();
+        F_UpdateOwnMoney();
     }
 }

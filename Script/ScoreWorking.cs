@@ -30,7 +30,7 @@ public class ScoreWorking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_nScore = m_pMNInfoScript.P_LoadNInfo(MultipleInfo.E_NINFO.E_SCORE);
+        m_nScore = m_pMNInfoScript.C_LoadNInfo(MultipleInfo.E_NINFO.E_SCORE);
         m_pText.text = m_nScore.ToString();
     }
 }

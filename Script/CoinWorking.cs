@@ -11,6 +11,7 @@ public class CoinWorking : MonoBehaviour
     MultipleInfo m_pMNInfoScript;
     
     int m_nGoldAmount;
+    const int MONEYSCALAR = 50;
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +31,15 @@ public class CoinWorking : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            m_nGoldAmount = m_pMNInfoScript.P_LoadNInfo(MultipleInfo.E_NINFO.E_GOLD);
+            int nMoney = 0;
+
+            m_nGoldAmount = m_pMNInfoScript.C_LoadNInfo(MultipleInfo.E_NINFO.E_GOLD);
             m_nGoldAmount++;
-            m_pMNInfoScript.P_UpdateNInfo(m_nGoldAmount, MultipleInfo.E_NINFO.E_GOLD);
+            m_pMNInfoScript.C_UpdateNInfo(m_nGoldAmount, MultipleInfo.E_NINFO.E_GOLD);
+            nMoney = m_pMNInfoScript.C_LoadNInfo(MultipleInfo.E_NINFO.E_MONEY);
+            nMoney += MONEYSCALAR;
+            m_pMNInfoScript.C_UpdateNInfo(nMoney, MultipleInfo.E_NINFO.E_MONEY);
+
             Destroy(gameObject);
         }
     }

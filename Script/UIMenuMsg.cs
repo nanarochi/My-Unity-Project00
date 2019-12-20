@@ -43,7 +43,6 @@ public class UIMenuMsg : MonoBehaviour
 
     public void C_OnClickRetry()
     {
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }

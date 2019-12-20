@@ -38,6 +38,12 @@ public class PlayerKeyController : MonoBehaviour
     [SerializeField]
     public GameObject m_pUICharactor;
 
+    [SerializeField]
+    public GameObject m_pNPCShopAI;
+
+    [SerializeField]
+    public GameObject m_pNPCShopEvent;
+
     #endregion
 
 
@@ -52,6 +58,9 @@ public class PlayerKeyController : MonoBehaviour
     UIMenuMsg m_pUIMenuScript;
     UIInvenWork m_pUIInvenWorkScript;
     UICharactor m_pUICharScript;
+    ShopAI m_pShopAIScript;
+    ShopEvent m_pShopEventScript;
+
 
     float m_fTime;
     float m_fHandleCoord;
@@ -198,6 +207,18 @@ public class PlayerKeyController : MonoBehaviour
         {
             m_isActivePauseMenu = !m_isActivePauseMenu;
 
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if(m_pShopAIScript.P_IsTrigger)
+            {
+                m_pShopEventScript.P_IsPressSpace = true;
+            }
+            else
+            {
+                m_pShopEventScript.P_IsPressSpace = false;
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.R))
@@ -433,6 +454,8 @@ public class PlayerKeyController : MonoBehaviour
         m_pUIMenuScript = m_pUIMenu.GetComponent<UIMenuMsg>();
         m_pUIInvenWorkScript = m_pUIInven.GetComponent<UIInvenWork>();
         m_pUICharScript = m_pUICharactor.GetComponent<UICharactor>();
+        m_pShopAIScript = m_pNPCShopAI.GetComponent<ShopAI>();
+        m_pShopEventScript = m_pNPCShopEvent.GetComponent<ShopEvent>();
 
         m_fYRotate = 0.0f;
         m_fXTranslate = 0.0f;
